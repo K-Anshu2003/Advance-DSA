@@ -1,0 +1,33 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef {
+    public static int longestGoodSubsequence(int[] arr) {
+        int n = arr.length;
+        int count = 1; // Start with first element
+        int prevParity = arr[0] % 2;
+
+        for (int i = 1; i < n; i++) {
+            int currParity = arr[i] % 2;
+            if (currParity != prevParity) {
+                count++;
+                prevParity = currParity; // Update parity for next comparison
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.println(longestGoodSubsequence(arr));
+    }
+}
