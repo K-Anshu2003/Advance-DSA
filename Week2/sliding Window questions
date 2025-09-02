@@ -1,1 +1,36 @@
+1:-----
+Find the subarray of length K, having maximum unique charcters.
 
+import java.util.*;
+public class MaxUniqueSubarray {
+    public static String findMaxUniqueSubarray(String s, int k) {
+        if (s.length() < k) return "";
+
+        int maxUnique = 0;
+        String result = "";
+
+        for (int i = 0; i <= s.length() - k; i++) {
+            String sub = s.substring(i, i + k);
+            Set<Character> uniqueChars = new HashSet<>();
+
+            for (char c : sub.toCharArray()) {
+                uniqueChars.add(c);
+            }
+
+            if (uniqueChars.size() > maxUnique) {
+                maxUnique = uniqueChars.size();
+                result = sub;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String s = "abcabcbb";
+        int k = 3;
+
+        String maxUniqueSub = findMaxUniqueSubarray(s, k);
+        System.out.println("Subarray with max unique characters: " + maxUniqueSub);
+    }
+}
