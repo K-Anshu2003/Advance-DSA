@@ -1,1 +1,32 @@
+//optimal approach
 
+
+
+
+
+//Brute force approach
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int n = nums.length;
+        int count = 0;
+
+        for(int i=0; i<n; i++){
+            for(int j=i; j<n; j++){
+                List<Integer> li = new ArrayList<>();
+                int product = 1;
+                for(int m=i; m<=j; m++){
+                    li.add(nums[m]);
+                }
+                for(int l : li){
+                    product *= l;
+                }
+                if(product < k){
+                    count++;
+                }else{
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+}
