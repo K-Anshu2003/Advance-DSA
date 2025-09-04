@@ -1,1 +1,27 @@
+//optimal approach
 
+
+
+//brute force approach
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+
+        int maxlength = 0;
+        for(int i=0; i<s.length(); i++){
+            HashSet<Character> set = new HashSet<>();
+            int length = 0;
+            for(int j=i; j<s.length(); j++){
+                char ch = s.charAt(j);
+                if(!set.contains(ch)){
+                    set.add(ch);
+                    length++;
+                }else{
+                    break;
+                }
+            }
+            maxlength = Math.max(maxlength, length);
+        }
+        return maxlength;   
+    }
+}
