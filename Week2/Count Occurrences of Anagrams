@@ -1,0 +1,55 @@
+//optimal approach
+//sliding window
+
+class Solution {
+
+    int search(String pat, String txt) {
+        
+        int patFreq[] = new int[26];
+        int k = pat.length();
+        int n = txt.length();
+        
+        //claculate patttrn frequency
+        for(int i=0; i<k; i++){
+            int index = pat.charAt(i)-97;
+            patFreq[index]++;
+        }
+        
+        //initializing window of size equals to pattrn's size
+        int txtFreq[] = new int[26];
+        for(int i=0; i<k; i++){
+            int index = txt.charAt(i)-97;
+            txtFreq[index]++;
+        }
+        int count = 0;
+        if(Arrays.equals(txtFreq,patFreq)){
+            count++;
+            
+        }
+        
+        
+        //calculation for next windows by sliding the window by one index;
+        for(int i=1; i<n-k+1; i++){
+            
+            int RemovedCharIndex = txt.charAt(i-1)-97;
+            int addedCharIndex = txt.charAt(i+k-1)-97;
+            
+            txtFreq[addedCharIndex]++;
+            txtFreq[RemovedCharIndex]--;
+            
+            if(Arrays.equals(txtFreq,patFreq)){
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+//brute force approach
+
+
+
+
+
+
+
