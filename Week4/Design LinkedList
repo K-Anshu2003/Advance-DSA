@@ -1,0 +1,87 @@
+class MyLinkedList {
+
+    class Node {
+        int data;
+        Node next;
+
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+    Node head;
+
+    public MyLinkedList(){
+        head = null;
+    }
+
+    public int get(int index) {
+        if (index < 0) return -1;
+        Node temp = head;
+        for(int i=0; i<index; i++){
+            if (temp == null) return -1;
+            temp = temp.next;
+        }
+        return (temp != null) ? temp.data : -1;
+    }
+    
+    public void addAtHead(int val) {
+        Node obj = new Node(val);
+        obj.next = head; 
+        head = obj;   
+    }
+    
+    public void addAtTail(int val) {
+
+        Node obj = new Node(val);
+        if(head == null){
+            head = obj;
+        }else{
+            Node temp = head;
+            while(temp.next != null){
+                temp = temp.next;
+            }
+            temp.next = obj;
+        }
+    }
+    
+    public void addAtIndex(int index, int val) {
+        if (index < 0) return;
+        Node obj = new Node(val);
+        if (index == 0) {
+            obj.next = head;
+            head = obj;
+            return;
+        }
+
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            if (temp == null) return; // index out of bounds
+            temp = temp.next;
+        }
+
+        if (temp != null) {
+            obj.next = temp.next;
+            temp.next = obj;
+        }
+    }
+    
+    public void deleteAtIndex(int index) {
+        if (index < 0 || head == null) return;
+
+        if (index == 0) {
+            head = head.next;
+            return;
+        }
+
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            if (temp == null || temp.next == null) return; // index out of bounds
+            temp = temp.next;
+        }
+
+        if (temp.next != null) {
+            temp.next = temp.next.next;
+        }
+    }
+}
