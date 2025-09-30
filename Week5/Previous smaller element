@@ -1,0 +1,28 @@
+// optimal one
+
+
+// Brute force 
+class Solution {
+    public static ArrayList<Integer> prevSmaller(int[] arr) {
+        // code here
+        int n = arr.length;
+        
+        ArrayList<Integer> al = new ArrayList<>();
+        al.add(-1);
+        
+        for(int i=1; i<n; i++){
+            boolean f = false;
+            for(int j=i-1; j>=0; j--){
+                if(arr[j] < arr[i]){
+                    al.add(arr[j]);
+                    f = true;
+                    break;
+                }
+            }
+            if(f == false){
+                al.add(-1);
+            }
+        }
+        return al;
+    }
+}
