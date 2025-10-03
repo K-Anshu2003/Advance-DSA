@@ -1,0 +1,81 @@
+//optimal approach
+class Solution {
+    // main function
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int maxArea = 0;
+
+        ArrayList<Integer> prevIdx = prevIndex(heights, n);
+        ArrayList<Integer> nextIdx = nextIndex(heights, n);
+
+        for(int i=0; i<n; i++){
+            int height = heights[i]; 
+            int width = nextIdx.get(i) - prevIdx.get(i)-1;
+            int area = height*width;
+            maxArea = Math.max(maxArea, area);
+        }
+        return maxArea;
+    }
+    // function to calculate next smaller element
+    public ArrayList<Integer> nextIndex(int[] heights, int n) {
+        ArrayList<Integer> li = new ArrayList<>(Collections.nCopies(n, n)); // default to n
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && heights[st.peek()] >= heights[i]) {
+                st.pop();
+            }
+            if (!st.isEmpty()) {
+                li.set(i, st.peek());
+            }
+            st.push(i);
+        }
+        return li;
+    }
+
+    // function to calculate prev smaller element
+    public ArrayList<Integer> prevIndex(int[] heights, int n) {
+        ArrayList<Integer> li = new ArrayList<>(Collections.nCopies(n, -1)); // default to -1
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && heights[st.peek()] >= heights[i]) {
+                st.pop();
+            }
+            if (!st.isEmpty()) {
+                li.set(i, st.peek());
+            }
+            st.push(i);
+        }
+        return li;
+    }
+
+}
+
+
+
+
+
+//Brute force approach
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        
+        int n = heights.length;
+        int maxArea = 0;
+        for(int i=0; i<n; i++){
+            int height = heights[i];
+            int left = i, right = i;
+
+            while(left > 0 && heights[left-1] >= height){
+                left--;
+            }
+            while(right < n-1 && heights[right+1] >= height){
+                right++;
+            }
+            int width = right - left + 1;
+            int area = height*width;
+            maxArea = Math.max(maxArea, area);
+        }
+        return maxArea;
+    }
+}
