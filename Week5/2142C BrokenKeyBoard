@@ -1,0 +1,33 @@
+import java.util.*;
+public class static void main(String[] args){
+     Scanner sc = new Scanner(System.in);
+     int t = sc.nextInt();
+     while(t-- > 0){
+        String s = sc.nextLine();
+        Deque<Character> q = new ArrayDeque<>();
+
+        int lowerBackSpace = 0;
+        int upperBackSpace = 0;
+
+        for(int i=s.length()-1; i>=0; i--){
+            char ch = s.charAt(i);
+            if(ch == 'b'){
+                lowerBackSpace++;
+            }else if(ch == 'B'){
+                upperBackSpace++;
+            }else if(Character.isLowerCase(ch)){
+                if(lowerBackSpace > 0){
+                   lowerBackSpace--;
+                }else{
+                   q.addFirst(ch);
+                }
+            }else if(Character.isUpperCase(ch)){
+                if(upperBackSpace > 0){
+                   upperBackSpace--;
+                }else{
+                   q.addFirst(ch);
+                }
+            }
+        }  
+     }
+}
