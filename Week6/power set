@@ -1,0 +1,24 @@
+class Solution {
+    public List<String> AllPossibleStrings(String s) {
+        // Code here
+        List<String> result = new ArrayList<>();
+        StringBuilder curr = new StringBuilder();
+        solve(s, curr, 0, result);
+        Collections.sort(result);
+        return result;
+    }
+    public void solve(String s, StringBuilder curr, int idx, List<String> result){
+        
+        if(idx == s.length()){
+            if(curr.length() > 0){
+                result.add(curr.toString());
+            }
+            return;
+        }
+        
+        curr.append(s.charAt(idx));
+        solve(s, curr, idx+1, result);
+        curr.deleteCharAt(curr.length()-1);
+        solve(s, curr, idx+1, result);
+    }
+}
