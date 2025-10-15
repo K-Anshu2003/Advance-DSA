@@ -1,0 +1,39 @@
+class Solution {
+    // Optimal approach!!!!
+    public int findTheWinner(int n, int k){
+        if(n==1){
+            return 1;
+        }
+        
+        return  (findTheWinner(n-1, k)+k-1)%n+1;
+    }
+
+    // Brute force!!!!
+    public int findTheWinner1(int n, int k) {
+        int[] Person = new int[n];
+        return winner(Person,n,0,n,k)+1;
+    }
+
+    public int winner(int[] Person, int n, int idx, int person_left, int k){
+
+        if(person_left == 1){
+            for(int i=0; i<n; i++){
+                if(Person[i] == 0) return i;
+            }
+        }
+
+        int steps = 0;
+        while (steps < k - 1) {
+            idx = (idx + 1) % n;
+            if (Person[idx] == 0) steps++;
+        }
+        Person[idx] = 1; // eliminated
+        // Move to next alive person for next round
+        int nextIdx = idx;
+        do {
+            nextIdx = (nextIdx + 1) % n;
+        } while (Person[nextIdx] == 1);
+
+        return winner(Person, n, nextIdx, person_left - 1, k);
+    }
+}
