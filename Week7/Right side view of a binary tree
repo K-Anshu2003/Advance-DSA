@@ -1,0 +1,18 @@
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+
+        List<Integer> li = new ArrayList<>();
+        rightSideHelper(root, li, 0);
+        return li;  
+    }
+    public void rightSideHelper(TreeNode root, List<Integer> li, int level){
+        if(root == null) return;
+
+        if(level == li.size()){
+            li.add(root.val);
+        }
+         
+        rightSideHelper(root.right, li, level+1);
+        rightSideHelper(root.left, li, level+1);
+    }
+}
