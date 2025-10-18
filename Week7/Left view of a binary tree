@@ -1,0 +1,20 @@
+class Solution {
+    public ArrayList<Integer> leftView(Node root) {
+        // code here
+        ArrayList<Integer> li = new ArrayList<>();
+        leftviewHelper(root, li, 0);
+        return li;
+    }
+    
+    public void leftviewHelper(Node root, ArrayList<Integer> li, int level){
+        if(root == null) return;
+        
+        if(level == li.size()){
+            li.add(root.data);
+        }
+        
+        // searching in left part first to priortise left part
+        leftviewHelper(root.left, li, level+1);
+        leftviewHelper(root.right, li, level+1);
+    }
+}
