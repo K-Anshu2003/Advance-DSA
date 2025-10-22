@@ -1,0 +1,24 @@
+class Tree {
+    public ArrayList<Integer> diagonal(Node root) {
+        // add your code here.
+        ArrayList<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
+            while (node != null) {
+                // Add to result for the current diagonal
+                result.add(node.data);
+                // Left child is for next diagonal, so enqueue
+                if (node.left != null)
+                    queue.add(node.left);
+                // Move to right within same diagonal
+                node = node.right;
+            }
+        }
+        return result;
+    }
+}
