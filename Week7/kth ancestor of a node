@@ -1,0 +1,25 @@
+class Solution {
+    public int kthAncestor(Node root, int k, int node) {
+        // Write your code here
+        Map<Integer, Integer> parentMap = new HashMap<>();
+        getParents(root, -1, parentMap);
+        
+        int n = node;
+        while(parentMap.containsKey(n) && k>0){
+            n = parentMap.get(n);
+            k--;
+        }
+        
+        return !parentMap.containsKey(n) ? -1: n;
+    }
+    
+    public void getParents(Node root, int p, Map<Integer, Integer> parentMap){
+        
+        if(root == null){
+            return;
+        }
+        parentMap.put(root.data, p);
+        getParents(root.left, root.data, parentMap);
+        getParents(root.right, root.data, parentMap);
+    }
+}
