@@ -1,0 +1,15 @@
+class Solution {
+    static boolean isPrime(int n) {
+        // code here
+        if (n <= 1) {
+            return false; // 0 and 1 are not prime
+        }
+        // Only check up to sqrt(n)
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return false; // Found a factor, not prime
+            }
+        }
+        return true;
+    }
+}
