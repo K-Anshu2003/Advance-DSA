@@ -1,0 +1,21 @@
+class Solution {
+    public int lastRemaining(int n) {
+
+        int head = 1;
+        int diff = 1;
+        boolean LtoR = true;
+        int remaining = n;
+        
+        return lastElement(head, diff, LtoR, remaining);     
+    }
+    public int lastElement(int head, int diff, boolean LtoR, int remaining){
+
+        if(remaining == 1) return head;
+
+        if(LtoR || remaining%2 == 1){
+            return lastElement(head+diff, diff*2, !LtoR, remaining/2);
+        }else{
+            return lastElement(head, diff*2, !LtoR, remaining/2);
+        }
+    }
+}
