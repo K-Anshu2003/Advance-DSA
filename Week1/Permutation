@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> li = new ArrayList<>();
+
+        boolean[] isVisited = new boolean[nums.length];
+
+        helper(nums, li, list, isVisited);
+        return list;
+    }
+    public void helper(int[] nums, List<Integer> li, List<List<Integer>> list, boolean[] isVisited){
+
+        if(li.size() == nums.length){
+            List<Integer> res = new ArrayList<>(li);
+            list.add(res);
+            return;
+        }
+        for(int i=0; i<nums.length; i++){
+            if(isVisited[i] == true) continue;
+
+            isVisited[i] = true;
+            li.add(nums[i]);
+            helper(nums, li, list, isVisited);
+
+            li.remove(li.size()-1);
+            isVisited[i] = false;
+                 
+        }
+    }
+}
