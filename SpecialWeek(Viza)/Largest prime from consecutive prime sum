@@ -1,0 +1,22 @@
+class Solution {
+    public long totalScore(int hp, int[] damage, int[] requirement) {
+
+        int n = damage.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int i=1; i<n; i++){
+            int point = 0;
+            int currhp = hp;
+            int j = i;
+            while(j<n){
+                currhp = currhp - damage[j];
+                if(currhp >= requirement[j]){
+                    point++;
+                }
+                j++;
+            } 
+            score += point;  
+        }
+        return score;
+    }
+}
