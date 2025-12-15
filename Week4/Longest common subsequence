@@ -1,0 +1,26 @@
+class Solution {
+    static int lcs(String s1, String s2) {
+        // code here
+        int m = s1.length();
+        int n = s2.length();
+        Integer[][] dp = new Integer[m+1][n+1];
+        return solve(s1,s2,m,n,dp);
+    }
+    public static int solve(String s1, String s2, int idx1, int idx2, Integer[][] dp){
+        
+        if(idx1 == 0 || idx2 == 0){
+            return 0;
+        }
+        
+        if(dp[idx1][idx2] != null){
+            return dp[idx1][idx2];
+        }
+        
+        if(s1.charAt(idx1-1) == s2.charAt(idx2-1)){
+            return dp[idx1][idx2] = 1 + solve(s1, s2, idx1-1, idx2-1, dp);
+        }else{
+            return dp[idx1][idx2] = Math.max(solve(s1, s2, idx1-1, idx2, dp) , solve(s1, s2, idx1, idx2-1, dp));
+        }
+
+    }
+}
