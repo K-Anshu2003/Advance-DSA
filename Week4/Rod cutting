@@ -1,0 +1,84 @@
+class Solution {
+    
+    // space optimization approach
+    public int cutRod(int[] price) {
+        // code here
+        int n = price.length;
+        int[] prev = new int[n+1];
+        int[] curr = new int[n+1];
+        
+        for(int len=0; len<=n; len++){
+            prev[len] = price[0]*len;
+        }
+        
+        for(int i=1; i<n; i++){
+            for(int len=0; len<=n; len++){
+                
+                int notTake = prev[len];
+                
+                int take = (int)-1e9;
+                int rodLen = i+1;
+                if(rodLen <= len){
+                    take = price[i] + curr[len-rodLen];
+                }
+                
+                curr[len] = Math.max(take,notTake);
+            }
+            prev = curr;
+        }
+        
+        return prev[n];
+    }
+    
+    //tabulation
+    public int cutRod1(int[] price) {
+        // code here
+        int n = price.length;
+        Integer[][] dp = new Integer[n][n+1];
+        
+        for(int len=0; len<=n; len++){
+            dp[0][len] = price[0]*len;
+        }
+        
+        for(int i=1; i<n; i++){
+            for(int len=0; len<=n; len++){
+                
+                int notTake = dp[i-1][len];
+                
+                int take = (int)-1e9;
+                int rodLen = i+1;
+                if(rodLen <= len){
+                    take = price[i] + dp[i][len-rodLen];
+                }
+                
+                dp[i][len] = Math.max(take,notTake);
+            }
+        }
+        
+        return dp[n-1][n];
+    }
+    
+    // memoization
+    /*public int solve(int[] price, int idx, int len, Integer[][] dp){
+        
+        if(idx == 0){
+            return price[0]*len;
+        }
+        
+        if(dp[idx][len] != null){
+            return dp[idx][len];
+        }
+        
+        // not taking
+        int notTake = solve(price, idx-1, len, dp);
+        
+        //take
+        int take = (int)-1e9;
+        int rodLen = idx+1;
+        if(rodLen <= len){
+            take = price[idx] + solve(price, idx, len - rodLen, dp);
+        }
+        
+        return dp[idx][len] = Math.max(notTake, take);
+    }*/
+}
