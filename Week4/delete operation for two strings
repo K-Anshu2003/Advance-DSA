@@ -1,0 +1,53 @@
+class Solution {
+
+    public int minDistance(String word1, String word2) {
+        int n = word1.length();
+        int m = word2.length();
+        
+        int[][] dp = new int[n+1][m+1];
+        
+        for(int i=0; i<=n; i++){
+            for(int j=0; j<=m; j++){
+                
+                if( i==0 || j==0){
+                    dp[i][j] = 0;
+                    continue;
+                }
+                
+                if(word1.charAt(i-1) == word2.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j] = Math.max(dp[i-1][j] , dp[i][j-1]);
+                }
+            }
+        }
+        int ans = (n - dp[n][m]) + (m - dp[n][m]);
+        return ans;
+    }
+
+
+    // recursive code
+    public int minDistance1(String word1, String word2) {
+
+        int n = word1.length();
+        int m = word2.length();
+
+        int ans = 0;
+        int subLength = helper(n, m, word1, word2); 
+
+        ans = n-subLength + m-subLength;
+        return ans;
+    }
+    public int helper(int i, int j, String w1, String w2){
+
+        if(i == 0 || j == 0) return 0;
+
+        if(w1.charAt(i-1) == w2.charAt(j-1)){
+            return 1+helper(i-1, j-1, w1, w2);
+        }
+        else{
+            return Math.max(helper(i-1, j, w1, w2) , helper(i, j-1, w1, w2));
+        }
+    }
+}
