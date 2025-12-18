@@ -1,0 +1,44 @@
+class Solution {
+
+// using lcs template
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        StringBuilder sb1 = new StringBuilder(s);
+        StringBuilder sb2 = new StringBuilder(s).reverse();
+        return solve(sb1, sb2, n, n);
+    }
+    public int solve(StringBuilder s1, StringBuilder s2, int i, int j){
+
+        if(i==0 || j==0){
+            return 0;
+        }
+
+        if(s1.charAt(i-1) == s2.charAt(j-1)){
+            return 1+solve(s1,s2,i-1,j-1);
+        }
+        else{
+            return Math.max(solve(s1,s2,i-1,j), solve(s1,s2,i,j-1));
+        }
+
+    }
+
+
+//  using two pointer approach
+    /*public int longestPalindromeSubseq(String s) {
+
+        int n = s.length();
+        return solve(s,0,n-1); 
+    }
+    public int solve(String s, int i, int j){
+
+        if(i>j) return 0;
+        if(i==j) return 1;
+
+        if(s.charAt(i) == s.charAt(j)){
+            return 2+solve(s,i+1,j-1);
+        }
+        else{
+            return Math.max(solve(s,i+1,j),solve(s,i,j-1));
+        }
+    }*/
+}
