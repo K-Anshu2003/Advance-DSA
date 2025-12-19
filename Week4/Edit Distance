@@ -1,0 +1,30 @@
+class Solution {
+    public int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        Integer[][] dp = new Integer[m+1][n+1];
+        return helper(word1, word2, m, n, dp);
+    }
+    public int helper(String s1, String s2, int i, int j, Integer[][] dp) {
+        // Base cases
+        if(i == 0) return j;  // Insert remaining j chars of s2
+        if(j == 0) return i;  // Delete remaining i chars of s1
+
+        if(dp[i][j] != null){
+            return dp[i][j];
+        }
+        
+        // If characters match: no operation needed
+        if(s1.charAt(i-1) == s2.charAt(j-1)) {
+            return dp[i][j] = helper(s1, s2, i-1, j-1, dp);
+        }
+        
+        // Min of 3 operations:
+        int insert = 1 + helper(s1, s2, i, j-1, dp);    // Insert into s1
+        int delete = 1 + helper(s1, s2, i-1, j, dp);    // Delete from s1
+        int replace = 1 + helper(s1, s2, i-1, j-1, dp); // Replace s1[i-1] with s2[j-1]
+        
+        return dp[i][j] = Math.min(insert, Math.min(delete, replace));
+    }
+}
