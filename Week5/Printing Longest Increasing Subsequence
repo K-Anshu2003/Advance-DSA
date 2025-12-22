@@ -1,0 +1,38 @@
+class Solution {
+    public ArrayList<Integer> getLIS(int arr[]) {
+        // Code here
+        int n = arr.length;
+        int[] dp = new int[n];
+        int[] parent = new int[n];
+
+        Arrays.fill(dp, 1);
+        Arrays.fill(parent, -1);
+        int max = 1;
+        
+        int lastIdx = arr[0];
+
+        for(int curr = 1; curr<n; curr++){
+            for(int prev = 0; prev < curr; prev++){
+                if(arr[curr] > arr[prev] && dp[curr] < dp[prev]+1){
+                    dp[curr] = dp[prev] +1;
+                    max = Math.max(dp[curr], max);
+                    parent[curr] = prev;
+                }
+            }
+        }
+        for(int i=0; i<n; i++){
+            if(dp[i] == max){
+                lastIdx = i;
+                break;
+            }
+        }
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int i=lastIdx; i != -1; i = parent[i]){
+            ans.add(arr[i]);
+        }
+        
+        Collections.reverse(ans);
+        return ans;
+    }
+}
