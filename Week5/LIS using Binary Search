@@ -1,0 +1,40 @@
+class Solution {
+    // binary search to optimize time complexity 
+    static int lis(int arr[]){
+        int n = arr.length;
+        
+        ArrayList<Integer> li = new ArrayList<>();
+        li.add(arr[0]);
+        
+        for(int i=1; i<n; i++){
+            if(arr[i] > li.get(li.size()-1)){
+                li.add(arr[i]);
+            }
+            else{
+                li.set(lowerBound(li, arr[i]), arr[i]);
+            }
+        }
+        
+        return li.size();
+    }
+    public static int lowerBound(ArrayList<Integer> li, int target){
+        int low = 0;
+        int high = li.size()-1;
+        
+        while(low <= high){
+            
+            int mid = low+(high-low)/2;
+            
+            if(li.get(mid) == target){
+                return mid;
+            }
+            else if(li.get(mid) > target){
+                high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }
+}
