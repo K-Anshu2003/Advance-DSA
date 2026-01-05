@@ -1,0 +1,40 @@
+public static void main(String[] args) throws IOException {
+            FastScanner sc = new FastScanner(System.in);
+
+            int t = sc.nextInt();
+            while (t-- > 0) {
+                  long a = sc.nextLong();
+                  long b = sc.nextLong();
+
+                  Integer[][][] dp1 = new Integer[20][2][4];
+                  Integer[][][] dp2 = new Integer[20][2][4];
+                  int ans = noOfClassyNum(String.valueOf(b), 0, 1, 0, dp1) - noOfClassyNum(String.valueOf(a-1), 0, 1, 0, dp2);
+                  System.out.println(ans);
+            }
+      }
+      public static int noOfClassyNum(String s, int i, int tight, int count, Integer[][][] dp) {
+
+            if (count > 3)
+                  return 0;
+            if (i == s.length()) {
+                  return 1;
+            }
+
+            if(dp[i][tight][count] != null){
+                  return dp[i][tight][count];
+            }
+
+            int lb = 0;
+            int ub = (tight == 1) ? (s.charAt(i) - '0') : 9;
+            int res = 0;
+
+            for (int digit = lb; digit <= ub; digit++) {
+                  int newTight = (tight == 1 && digit == ub) ? 1 : 0;
+                  if (digit != 0) {
+                        res += noOfClassyNum(s, i + 1, newTight, count + 1, dp);
+                  } else {
+                        res += noOfClassyNum(s, i + 1, newTight, count, dp);
+                  }
+            }
+            return dp[i][tight][count] = res;
+      }
