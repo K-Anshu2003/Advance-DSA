@@ -1,0 +1,50 @@
+// using two array
+public int findJudge2(int n, int[][] trust){
+
+        if(trust.length == 0 && n == 1){
+            return 1;
+        }
+
+        int[] indegree = new int[n+1];
+        int[] outdegree = new int[n+1];
+
+        for(int[] arr : trust){
+            int u = arr[0];
+            int v = arr[1];
+
+            indegree[v]++;
+            outdegree[u]++;
+        }
+
+        for(int i=0; i<=n; i++){
+            if(indegree[i] == n-1 && outdegree[i] == 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // using one array
+    public int findJudge3(int n, int[][] trust){
+
+        if(trust.length == 0 && n == 1){
+            return 1;
+        }
+
+        int[] degree = new int[n+1];
+
+        for(int[] arr : trust){
+            int u = arr[0];
+            int v = arr[1];
+
+            degree[v]++;
+            degree[u]--;
+        }
+
+        for(int i=0; i<=n; i++){
+            if(degree[i] == n-1){
+                return i;
+            }
+        }
+        return -1;
+    }
